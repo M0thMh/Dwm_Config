@@ -1,31 +1,10 @@
 --- dwm.c
 +++ dwm.c
-@@ -235,8 +235,6 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
- static int xerrorstart(Display *dpy, XErrorEvent *ee);
- static void zoom(const Arg *arg);
- 
--static void focusmaster(const Arg *arg);
--
- /* variables */
- static const char broken[] = "broken";
- static char stext[256];
-@@ -2152,19 +2150,3 @@ main(int argc, char *argv[])
- 	XCloseDisplay(dpy);
- 	return EXIT_SUCCESS;
- }
--
--void
--focusmaster(const Arg *arg)
--{
--	Client *c;
--
--	if (selmon->nmaster < 1)
--		return;
--	if (!selmon->sel || (selmon->sel->isfullscreen && lockfullscreen))
--		return;
--
--	c = nexttiled(selmon->clients);
--
--	if (c)
--		focus(c);
--}
+@@ -173,6 +176,7 @@ static void focusin(XEvent *e);
+ static void focusmon(const Arg *arg);
+ static void focusstack(const Arg *arg);
+ static Atom getatomprop(Client *c, Atom prop);
++static Picture geticonprop(Window w, unsigned int *icw, unsigned int *ich);
+ static int getrootptr(int *x, int *y);
+ static long getstate(Window w);
+ static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
