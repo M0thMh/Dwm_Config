@@ -8,7 +8,7 @@ static const unsigned int gappx     = 20;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Fira Sans:size=10", "monospace:size=10" };
+static const char *fonts[]          = {"Fira Sans:size=10", "Hack Nerd Font:size=13" };
 static const char dmenufont[]       = "Fira Sans:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -71,6 +71,8 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
+	{ControlMask,					XK_space,	  spawn,	   SHCMD("setxkbmap en")},
+	{XK_space,						ControlMask,  spawn,	   SHCMD("setxkbmap ara")},
 	{ 0,                XF86XK_AudioLowerVolume, spawn,        {.v = downvolume } },
 	{ 0,                XF86XK_AudioMute,        spawn,        {.v = mutevolume } },
 	{ 0,                XF86XK_AudioRaiseVolume, spawn,        {.v = upvolume   } },
