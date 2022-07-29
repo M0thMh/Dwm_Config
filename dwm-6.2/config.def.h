@@ -10,11 +10,11 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {"Fira Sans:size=10", "Hack Nerd Font:size=13" };
 static const char dmenufont[]       = "Fira Sans:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#2A2550";
+static const char col_gray1[]       = "#222222"; /* background color */
+static const char col_gray2[]       = "#444444"; /* inactive window border color */
+static const char col_gray3[]       = "#bbbbbb"; /* font color */
+static const char col_gray4[]       = "#eeeeee"; /* current tag and current window font color  */
+static const char col_cyan[]        = "#2A2550"; /* top bar second color and active window border color */
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -25,7 +25,11 @@ static const char *colors[][3]      = {
 /*Volume Control */
 static const char *upvolume[] = { "/usr/bin/amixer", "set", "Master", "5%+", NULL };
 static const char *downvolume[] = { "/usr/bin/amixer", "set", "Master", "5%-", NULL };
-static const char *mutevolume[] = { "/usr/bin/amixer", "set", "Master", "toggle", NULL };
+static const char *mutevolume[] = { "/usr/bin/amixerl", "set", "Master", "toggle", NULL };
+
+/* Brightness Control */
+static const char *light_up[]  =   { "cwm-brightness", "up", NULL };
+static const char *light_down[]  = { "cwm-brightness", "down", NULL };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -48,7 +52,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "[]",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
@@ -73,10 +77,11 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ControlMask,					XK_space,	  spawn,	   SHCMD("setxkbmap en")},
 	{XK_space,						ControlMask,  spawn,	   SHCMD("setxkbmap ara")},
-	{ 0,                XF86XK_AudioLowerVolume, spawn,        {.v = downvolume } },
-	{ 0,                XF86XK_AudioMute,        spawn,        {.v = mutevolume } },
-	{ 0,                XF86XK_AudioRaiseVolume, spawn,        {.v = upvolume   } },
-
+	{ 0,				XF86XK_AudioLowerVolume,  spawn,        {.v = downvolume} },
+	{ 0,                XF86XK_AudioMute,         spawn,        {.v = mutevolume} },
+	{ 0,                XF86XK_AudioRaiseVolume,  spawn,        {.v = upvolume} },
+	{ 0,                XF86XK_MonBrightnessUp,   spawn,		{.v = light_up } },
+	{ 0,                XF86XK_MonBrightnessDown, spawn,		{.v = light_down } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,			            XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
